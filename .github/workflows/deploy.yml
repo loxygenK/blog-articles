@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+name: Request production deploy to loxygenk/blog
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: gh workflow run ${{ vars.DEPLOY_ACTION_ID }} -R loxygenK/blog
+        env:
+          GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
